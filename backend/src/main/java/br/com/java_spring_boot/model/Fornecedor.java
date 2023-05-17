@@ -24,10 +24,8 @@ public class Fornecedor implements Serializable {
     private long idFornecedor;
     @Column(unique = true)
     private String cnpj;
-    @Column(unique = true)
     private String nome;
     private String email;
-    @Column(unique = true)
     private String CEP;
 
 

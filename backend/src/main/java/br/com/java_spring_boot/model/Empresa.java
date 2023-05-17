@@ -25,9 +25,7 @@ public class Empresa implements Serializable {
     private long idEmpresa;
     @Column(unique = true)
     private String cnpj;
-    @Column(unique = true)
     private String nomeFantasia;
-    @Column(unique = true)
     private String CEP;
 
     @ManyToMany

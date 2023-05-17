@@ -12,25 +12,26 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class EmpresaService {
+
     private final EmpresaRepository empresaRepository;
 
 
-    public List<Empresa> listarEmpresas() {
+    public List<Empresa> listar() {
         return empresaRepository.findAll();
     }
 
     public Optional<Empresa> buscarPorId(Long id) {
         return empresaRepository.findById(id);
     }
-    public void salvarEmpresa (Empresa empresa){
+    public void salvar (Empresa empresa){
         empresaRepository.save(empresa);
     }
 
-    public void atualizarEmpresa (Empresa empresa){
-            empresaRepository.save(empresa);
+    public void atualizar (Empresa empresa){
+        empresaRepository.save(empresa);
     }
 
-    public void deletarEmpresa(Empresa empresa){
+    public void deletar(Empresa empresa){
         empresaRepository.delete(empresa);
     }
 }
