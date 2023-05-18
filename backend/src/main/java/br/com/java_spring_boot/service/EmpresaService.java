@@ -23,15 +23,20 @@ public class EmpresaService {
     public Optional<Empresa> buscarPorId(Long id) {
         return empresaRepository.findById(id);
     }
-    public void salvar (Empresa empresa){
+
+    public void salvar(Empresa empresa) {
         empresaRepository.save(empresa);
     }
 
-    public void atualizar (Empresa empresa){
+    public void atualizar(Empresa empresa) {
         empresaRepository.save(empresa);
     }
 
-    public void deletar(Empresa empresa){
+    public void deletar(Empresa empresa) {
         empresaRepository.delete(empresa);
+    }
+
+    public Empresa buscarPorCnpj(String cnpj) {
+        return empresaRepository.findByCnpj(cnpj);
     }
 }

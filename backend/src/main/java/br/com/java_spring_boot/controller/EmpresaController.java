@@ -48,8 +48,28 @@ public class EmpresaController {
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/buscarPorCnpj/{cnpj}")
+    public ResponseEntity<Object> buscarEmpresaPorCnpj(@PathVariable String cnpj) {
+
+        Optional<Empresa> empresaOptional = Optional.ofNullable(empresaService.buscarPorCnpj(cnpj));
+        try {
+            if (empresaOptional.isPresent()) {
+                Empresa empresa = empresaOptional.get();
+                return ResponseEntity.ok().body(empresa);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Empresa não encontrada.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao buscar Empresa.");
+        }
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/salvar")
     public ResponseEntity<Object> salvarEmpresa(@RequestBody @Valid Empresa empresa) {
+
+        empresa.setCnpj(empresa.getCnpj().replaceAll("[^0-9]", ""));
+
         try {
 
             empresaService.salvar(empresa);

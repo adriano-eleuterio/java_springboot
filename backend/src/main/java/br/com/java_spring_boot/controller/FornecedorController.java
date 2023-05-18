@@ -74,12 +74,12 @@ public class FornecedorController {
     }
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/buscarPorCnpj/{cnpj}")
-    public ResponseEntity<Object> buscarPorCNPJ(@PathVariable String cnpj) {
+    public ResponseEntity<Object> buscarFornecedorPorCnpj(@PathVariable String cnpj) {
+
         Optional<Fornecedor> fornecedorOptional = Optional.ofNullable(fornecedorService.buscarPorCnpj(cnpj));
-
         try {
-            if (fornecedorOptional.isPresent()) {
 
+            if (fornecedorOptional.isPresent()) {
                 Fornecedor fornecedor = fornecedorOptional.get();
                 return ResponseEntity.ok().body(fornecedor);
             } else {
@@ -91,10 +91,13 @@ public class FornecedorController {
     }
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/salvar")
-    private ResponseEntity<Object> salvarFornecedor(@RequestBody @Valid Fornecedor Fornecedor) {
+    private ResponseEntity<Object> salvarFornecedor(@RequestBody @Valid Fornecedor fornecedor) {
+
+        fornecedor.setCnpj(fornecedor.getCnpj().replaceAll("[^0-9]", ""));
+
         try {
 
-            fornecedorService.salvar(Fornecedor);
+            fornecedorService.salvar(fornecedor);
             return ResponseEntity.ok().body("Fornecedor salvo com sucesso");
 
         } catch (Exception e) {
