@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -24,11 +26,17 @@ public class Fornecedor implements Serializable {
     private long idFornecedor;
     @Column(unique = true)
     private String cnpj;
+    private String cpf;
+    @Column(nullable = false)
     private String nome;
     private String email;
-    private String CEP;
+    @Column(nullable = false)
+    private String cep;
+    private String rg;
+    private LocalDate dataNascimento;
+    private Boolean pessoaFisica = false;
 
 
     @ManyToMany(mappedBy = "fornecedores")
-    private List<Empresa> empresas;
+    private Set<Empresa> empresas;
 }

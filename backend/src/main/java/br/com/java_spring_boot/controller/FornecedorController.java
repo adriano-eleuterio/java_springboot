@@ -2,13 +2,28 @@ package br.com.java_spring_boot.controller;
 
 import br.com.java_spring_boot.model.Fornecedor;
 import br.com.java_spring_boot.service.FornecedorService;
-import jakarta.persistence.Column;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.*;
+import org.springframework.http.client.ClientHttpRequestExecution;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
+import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
+import java.io.IOException;
+import java.net.URI;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,17 +36,17 @@ public class FornecedorController {
 
     @GetMapping("/listar")
     private ResponseEntity<Object> listarFornecedors() {
-        List<Fornecedor> Fornecedors = fornecedorService.listar();
+        List<Fornecedor> fornecedores = fornecedorService.listar();
 
-        if (!Fornecedors.isEmpty()) {
-            return ResponseEntity.ok().body(Fornecedors);
+        if (!fornecedores.isEmpty()) {
+            return ResponseEntity.ok().body(fornecedores);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Fornecedores não encontrados.");
         }
     }
 
     @GetMapping("/buscarPorId/{id}")
-    public ResponseEntity<Object> buscarPorIdFornecedor(@PathVariable Long id) {
+    private ResponseEntity<Object> buscarPorIdFornecedor(@PathVariable Long id) {
         Optional<Fornecedor> FornecedorOptional = fornecedorService.buscarPorId(id);
         try {
             if (FornecedorOptional.isPresent()) {
@@ -47,9 +62,42 @@ public class FornecedorController {
         }
     }
 
+    @GetMapping("/buscarPorNome/{nome}")
+    public ResponseEntity<Object> buscarPorNome(@PathVariable String nome) {
+        Optional<Fornecedor> fornecedorOptional = Optional.ofNullable(fornecedorService.buscarPorNome(nome));
+
+        try {
+            if (fornecedorOptional.isPresent()) {
+
+                Fornecedor fornecedor = fornecedorOptional.get();
+                return ResponseEntity.ok().body(fornecedor);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Fornecedor não encontrado.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao buscar Fornecedor.");
+        }
+    }
+
+    @GetMapping("/buscarPorCnpj/{cnpj}")
+    public ResponseEntity<Object> buscarPorCNPJ(@PathVariable String cnpj) {
+        Optional<Fornecedor> fornecedorOptional = Optional.ofNullable(fornecedorService.buscarPorCnpj(cnpj));
+
+        try {
+            if (fornecedorOptional.isPresent()) {
+
+                Fornecedor fornecedor = fornecedorOptional.get();
+                return ResponseEntity.ok().body(fornecedor);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Fornecedor não encontrado.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao buscar Fornecedor.");
+        }
+    }
 
     @PostMapping("/salvar")
-    public ResponseEntity<Object> salvarFornecedor(@RequestBody Fornecedor Fornecedor) {
+    private ResponseEntity<Object> salvarFornecedor(@RequestBody Fornecedor Fornecedor) {
         try {
 
             fornecedorService.salvar(Fornecedor);
@@ -62,7 +110,7 @@ public class FornecedorController {
     }
 
     @PutMapping("/atualizar/{id}")
-    public ResponseEntity<Object> atualizarFornecedor(@PathVariable Long id, @RequestBody Fornecedor fornecedorAtualizado) {
+    private ResponseEntity<Object> atualizarFornecedor(@PathVariable Long id, @RequestBody Fornecedor fornecedorAtualizado) {
         Optional<Fornecedor> fornecedorOptional = fornecedorService.buscarPorId(id);
 
         try {
@@ -71,7 +119,7 @@ public class FornecedorController {
                 Fornecedor fornecedor = fornecedorOptional.get();
                 fornecedor.setNome(fornecedorAtualizado.getNome());
                 fornecedor.setEmail(fornecedorAtualizado.getEmail());
-                fornecedor.setCEP(fornecedorAtualizado.getCEP());
+                fornecedor.setCep(fornecedorAtualizado.getCep());
 
                 fornecedorService.atualizar(fornecedor);
                 return ResponseEntity.ok().body("Fornecedor atualizado com sucesso");
@@ -85,7 +133,7 @@ public class FornecedorController {
     }
 
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity<Object> deletarFornecedor(@PathVariable Long id) {
+    private ResponseEntity<Object> deletarFornecedor(@PathVariable Long id) {
         try {
             Optional<Fornecedor> FornecedorOptional = fornecedorService.buscarPorId(id);
 
@@ -102,4 +150,26 @@ public class FornecedorController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao deletar Fornecedor.");
         }
     }
+
+    @GetMapping("/buscarPorCep/{cep}")
+    public ResponseEntity<Object> buscarPorCEP(@PathVariable String cep) {
+        String apiUrl = "https://viacep.com.br/ws/" + cep + "/json/"; //cep.la
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<Object> response = restTemplate.getForEntity(apiUrl, Object.class);
+
+        return response;
+    }
+
+    /*
+    @GetMapping("/buscarPorCEP/{cep}")
+    public ResponseEntity<Object> buscarPorCEP(@PathVariable String cep) {
+        String apiUrl = "https://viacep.com.br/ws/" + cep + "/json/";
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<Object> response = restTemplate.getForEntity(apiUrl, Object.class);
+
+        return response;
+    }
+    */
 }

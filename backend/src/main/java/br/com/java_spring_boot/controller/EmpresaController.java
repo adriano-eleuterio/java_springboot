@@ -68,7 +68,7 @@ public class EmpresaController {
             if (empresaOptional.isPresent()) {
 
                 Empresa empresa = empresaOptional.get();
-                empresa.setCEP(empresaAtualizada.getCEP());
+                empresa.setCep(empresaAtualizada.getCep());
                 empresa.setNomeFantasia(empresaAtualizada.getNomeFantasia());
                 empresaService.atualizar(empresa);
                 return ResponseEntity.ok().body("Empresa atualizada com sucesso");

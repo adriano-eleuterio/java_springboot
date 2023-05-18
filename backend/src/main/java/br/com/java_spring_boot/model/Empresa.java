@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -26,11 +27,11 @@ public class Empresa implements Serializable {
     @Column(unique = true)
     private String cnpj;
     private String nomeFantasia;
-    private String CEP;
+    private String cep;
 
     @ManyToMany
     @JoinTable(name = "empresa_fornecedor",
             joinColumns = @JoinColumn(name = "empresa_id"),
             inverseJoinColumns = @JoinColumn(name = "fornecedor_id"))
-    private List<Fornecedor> fornecedores;
+    private Set<Fornecedor> fornecedores;
 }

@@ -34,4 +34,12 @@ public class FornecedorService {
     public void deletar(Fornecedor Fornecedor) {
         fornecedorRepository.delete(Fornecedor);
     }
+
+    public Fornecedor buscarPorNome(String nome){
+        return fornecedorRepository.findByNome(nome);
+    }
+
+    public Fornecedor buscarPorCnpj(String cnpj){
+        return fornecedorRepository.findByCnpj(cnpj);
+    }
 }
