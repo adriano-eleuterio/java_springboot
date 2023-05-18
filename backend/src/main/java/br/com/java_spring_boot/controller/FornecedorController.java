@@ -4,20 +4,14 @@ import br.com.java_spring_boot.model.Fornecedor;
 import br.com.java_spring_boot.service.FornecedorService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -44,7 +38,7 @@ public class FornecedorController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Fornecedores não encontrados.");
         }
     }
-
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/buscarPorId/{id}")
     private ResponseEntity<Object> buscarPorIdFornecedor(@PathVariable Long id) {
         Optional<Fornecedor> FornecedorOptional = fornecedorService.buscarPorId(id);
@@ -61,7 +55,7 @@ public class FornecedorController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao buscar Fornecedor.");
         }
     }
-
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/buscarPorNome/{nome}")
     public ResponseEntity<Object> buscarPorNome(@PathVariable String nome) {
         Optional<Fornecedor> fornecedorOptional = Optional.ofNullable(fornecedorService.buscarPorNome(nome));
@@ -78,7 +72,7 @@ public class FornecedorController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao buscar Fornecedor.");
         }
     }
-
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/buscarPorCnpj/{cnpj}")
     public ResponseEntity<Object> buscarPorCNPJ(@PathVariable String cnpj) {
         Optional<Fornecedor> fornecedorOptional = Optional.ofNullable(fornecedorService.buscarPorCnpj(cnpj));
@@ -95,9 +89,9 @@ public class FornecedorController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao buscar Fornecedor.");
         }
     }
-
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/salvar")
-    private ResponseEntity<Object> salvarFornecedor(@RequestBody Fornecedor Fornecedor) {
+    private ResponseEntity<Object> salvarFornecedor(@RequestBody @Valid Fornecedor Fornecedor) {
         try {
 
             fornecedorService.salvar(Fornecedor);
@@ -108,9 +102,9 @@ public class FornecedorController {
         }
 
     }
-
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PutMapping("/atualizar/{id}")
-    private ResponseEntity<Object> atualizarFornecedor(@PathVariable Long id, @RequestBody Fornecedor fornecedorAtualizado) {
+    private ResponseEntity<Object> atualizarFornecedor(@PathVariable Long id, @RequestBody @Valid Fornecedor fornecedorAtualizado) {
         Optional<Fornecedor> fornecedorOptional = fornecedorService.buscarPorId(id);
 
         try {
@@ -131,7 +125,7 @@ public class FornecedorController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao atualizar Fornecedor.");
         }
     }
-
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping("/deletar/{id}")
     private ResponseEntity<Object> deletarFornecedor(@PathVariable Long id) {
         try {

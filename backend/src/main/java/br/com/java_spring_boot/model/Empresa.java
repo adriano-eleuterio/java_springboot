@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CNPJ;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -25,6 +26,7 @@ public class Empresa implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idEmpresa;
     @Column(unique = true)
+    @CNPJ(message = "CNPJ Inválido")
     private String cnpj;
     private String nomeFantasia;
     private String cep;

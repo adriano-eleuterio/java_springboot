@@ -2,6 +2,7 @@ package br.com.java_spring_boot.controller;
 
 import br.com.java_spring_boot.model.Empresa;
 import br.com.java_spring_boot.service.EmpresaService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,7 @@ import java.util.Optional;
 public class EmpresaController {
 
     private final EmpresaService empresaService;
-
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/listar")
     private ResponseEntity<Object> listarEmpresas() {
         List<Empresa> empresas = empresaService.listar();
@@ -28,7 +29,7 @@ public class EmpresaController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Empresas não encontradas.");
         }
     }
-
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/buscarPorId/{id}")
     public ResponseEntity<Object> buscarPorIdEmpresa(@PathVariable Long id) {
         Optional<Empresa> empresaOptional = empresaService.buscarPorId(id);
@@ -46,9 +47,9 @@ public class EmpresaController {
         }
     }
 
-
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/salvar")
-    public ResponseEntity<Object> salvarEmpresa(@RequestBody Empresa empresa) {
+    public ResponseEntity<Object> salvarEmpresa(@RequestBody @Valid Empresa empresa) {
         try {
 
             empresaService.salvar(empresa);
@@ -59,9 +60,9 @@ public class EmpresaController {
         }
 
     }
-
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PutMapping("/atualizar/{id}")
-    public ResponseEntity<Object> atualizarEmpresa(@PathVariable Long id, @RequestBody Empresa empresaAtualizada) {
+    public ResponseEntity<Object> atualizarEmpresa(@PathVariable Long id, @RequestBody @Valid Empresa empresaAtualizada) {
         Optional<Empresa> empresaOptional = empresaService.buscarPorId(id);
 
         try {
@@ -80,7 +81,7 @@ public class EmpresaController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao atualizar empresa.");
         }
     }
-
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping("/deletar/{id}")
     public ResponseEntity<Object> deletarEmpresa(@PathVariable Long id) {
         try {
