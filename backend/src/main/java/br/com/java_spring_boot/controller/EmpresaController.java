@@ -2,6 +2,7 @@ package br.com.java_spring_boot.controller;
 
 import br.com.java_spring_boot.model.Empresa;
 import br.com.java_spring_boot.service.EmpresaService;
+import br.com.java_spring_boot.service.FornecedorService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,15 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/empresa")
-@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class EmpresaController {
 
     private final EmpresaService empresaService;
+
+    @Autowired
+    public EmpresaController(FornecedorService fornecedorService, EmpresaService empresaService) {
+        this.empresaService = empresaService;
+    }
+
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/listar")
     private ResponseEntity<Object> listarEmpresas() {
@@ -31,7 +37,7 @@ public class EmpresaController {
     }
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/buscarPorId/{id}")
-    public ResponseEntity<Object> buscarPorIdEmpresa(@PathVariable Long id) {
+    public ResponseEntity<Object> buscarEmpresaPorId(@PathVariable Long id) {
         Optional<Empresa> empresaOptional = empresaService.buscarPorId(id);
         try {
             if (empresaOptional.isPresent()) {
