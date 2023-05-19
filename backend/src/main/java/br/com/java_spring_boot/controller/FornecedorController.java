@@ -5,7 +5,6 @@ import br.com.java_spring_boot.model.Fornecedor;
 import br.com.java_spring_boot.service.EmpresaService;
 import br.com.java_spring_boot.service.FornecedorService;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;

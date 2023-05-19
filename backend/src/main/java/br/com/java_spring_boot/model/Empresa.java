@@ -1,6 +1,5 @@
 package br.com.java_spring_boot.model;
 
-import br.com.java_spring_boot.service.FornecedorService;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +8,6 @@ import org.hibernate.validator.constraints.br.CNPJ;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Set;
 
 @Data
