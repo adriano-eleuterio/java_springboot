@@ -96,6 +96,7 @@ public class FornecedorController {
     private ResponseEntity<Object> salvarFornecedor(@RequestBody @Valid Fornecedor fornecedor) {
 
         fornecedor.setCnpj(fornecedor.getCnpj().replaceAll("[^0-9]", ""));
+        fornecedor.setCep(fornecedor.getCep().replaceAll("[^0-9]", ""));
 
         try {
 
@@ -113,6 +114,7 @@ public class FornecedorController {
     private ResponseEntity<Object> salvarFornecedorComEmpresa(@PathVariable Long empresaId, @RequestBody @Valid Fornecedor fornecedor) {
 
         fornecedor.setCnpj(fornecedor.getCnpj().replaceAll("[^0-9]", ""));
+        fornecedor.setCep(fornecedor.getCep().replaceAll("[^0-9]", ""));
 
         Optional<Empresa> empresaOptional = empresaService.buscarPorId(empresaId);
 

@@ -74,6 +74,7 @@ public class EmpresaController {
     public ResponseEntity<Object> salvarEmpresa(@RequestBody @Valid Empresa empresa) {
 
         empresa.setCnpj(empresa.getCnpj().replaceAll("[^0-9]", ""));
+        empresa.setCep(empresa.getCep().replaceAll("[^0-9]", ""));
 
         try {
 

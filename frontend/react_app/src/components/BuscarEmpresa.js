@@ -49,9 +49,8 @@ function BuscarEmpresa() {
         <div>
           <h2>Dados da Empresa</h2>
           <p>CNPJ: {empresa.cnpj}</p>
-          <p>Razão Social: {empresa.razaoSocial}</p>
-          <p>Email: {empresa.email}</p>
-          <p>Endereço: {empresa.endereco}</p>
+          <p>Nome Fantasia: {empresa.nomeFantasia}</p>
+          <p>CEP: {empresa.cep}</p>
         </div>
       )}
     </div>

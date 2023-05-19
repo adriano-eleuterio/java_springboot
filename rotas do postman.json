@@ -1,0 +1,377 @@
+{
+	"info": {
+		"_postman_id": "8982869f-4ba0-4ff0-8a02-c5e5dfb458ad",
+		"name": "Projeto Java - SpringBoot",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27121230"
+	},
+	"item": [
+		{
+			"name": "Rotas da Empresa",
+			"item": [
+				{
+					"name": "Listar Empresas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/empresa/listar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"empresa",
+								"listar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Empresa pelo Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/empresa/buscarPorId/8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"empresa",
+								"buscarPorId",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Salvar Empresa",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cnpj\": \"67.458.597/0001-93\",\r\n    \"nomeFantasia\": \"nomeFantasia\",\r\n    \"cep\":\"cep\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/empresa/salvar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"empresa",
+								"salvar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Empresa",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nomeFantasia\": \"nomeFantasiaAtualiado\",\r\n    \"cep\":\"cepAtualizado\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/empresa/atualizar/15",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"empresa",
+								"atualizar",
+								"15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Empresa",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/empresa/deletar/13",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"empresa",
+								"deletar",
+								"13"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Empresa pelo CNPJ",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/empresa/buscarPorCnpj/33342922000136",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"empresa",
+								"buscarPorCnpj",
+								"33342922000136"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rotas do Fornecedor",
+			"item": [
+				{
+					"name": "Listar Fornecedores",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/fornecedor/listar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"fornecedor",
+								"listar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Fornecedor pelo Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/fornecedor/buscarPorId/8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"fornecedor",
+								"buscarPorId",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Salvar Fornecedor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cnpj\": \"38.382.660/0001-57\",\r\n    \"nome\": \"nome\",\r\n    \"email\":\"viviane@gmail.com\",\r\n    \"cep\" : \"cep\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/fornecedor/salvar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"fornecedor",
+								"salvar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Salvar Fornecedor Com Empresa",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cnpj\": \"76.204.771/0001-62\",\r\n    \"nome\": \"nome\",\r\n    \"email\":\"adriano@gmail.com\",\r\n    \"cep\" : \"cep\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/fornecedor/fornecedorEmpresa/3/salvar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"fornecedor",
+								"fornecedorEmpresa",
+								"3",
+								"salvar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Fornecedor",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"nomeAtualizado\",\r\n    \"email\":\"vivi02@gmail.com\",\r\n    \"cep\" : \"cepAtualizado\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/fornecedor/atualizar/13",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"fornecedor",
+								"atualizar",
+								"13"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Fornecedor",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/fornecedor/deletar/13",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"fornecedor",
+								"deletar",
+								"13"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Fornecedor pelo Nome",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/fornecedor/buscarPorNome/nome",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"fornecedor",
+								"buscarPorNome",
+								"nome"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar API CEP",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/fornecedor/buscarCEP/54430440",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"fornecedor",
+								"buscarCEP",
+								"54430440"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Fornecedor pelo CNPJ",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/fornecedor/buscarPorCnpj/76204771000162",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"fornecedor",
+								"buscarPorCnpj",
+								"76204771000162"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
