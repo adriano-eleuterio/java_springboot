@@ -7,7 +7,7 @@ function BuscarFornecedor() {
 
   const handleBuscarFornecedor = async (event) => {
     event.preventDefault();
-    const cnpj = cnpjRef.current.value;
+    const cnpj = cnpjRef.current.value.replace(/[^0-9]/g, "");
     const nome = nomeRef.current.value;
 
     try {

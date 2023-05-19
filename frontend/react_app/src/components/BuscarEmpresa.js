@@ -6,7 +6,10 @@ function BuscarEmpresa() {
 
   const handleBuscarEmpresa = async (event) => {
     event.preventDefault();
-    const cnpj = cnpjRef.current.value;
+    let cnpj = cnpjRef.current.value;
+
+    // Remover todos os caracteres não numéricos do CNPJ
+    cnpj = cnpj.replace(/[^0-9]/g, '');
 
     try {
       const response = await fetch(`http://localhost:8080/empresa/buscarPorCnpj/${cnpj}`);

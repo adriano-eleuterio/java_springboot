@@ -34,6 +34,7 @@ public class EmpresaController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Empresas não encontradas.");
         }
     }
+
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/buscarPorId/{id}")
     public ResponseEntity<Object> buscarEmpresaPorId(@PathVariable Long id) {
@@ -55,7 +56,7 @@ public class EmpresaController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/buscarPorCnpj/{cnpj}")
     public ResponseEntity<Object> buscarEmpresaPorCnpj(@PathVariable String cnpj) {
-
+        cnpj = cnpj.replaceAll("[^0-9]", "");
         Optional<Empresa> empresaOptional = Optional.ofNullable(empresaService.buscarPorCnpj(cnpj));
         try {
             if (empresaOptional.isPresent()) {
@@ -86,9 +87,11 @@ public class EmpresaController {
         }
 
     }
+
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PutMapping("/atualizar/{id}")
-    public ResponseEntity<Object> atualizarEmpresa(@PathVariable Long id, @RequestBody @Valid Empresa empresaAtualizada) {
+    public ResponseEntity<Object> atualizarEmpresa(@PathVariable Long id,
+            @RequestBody @Valid Empresa empresaAtualizada) {
         Optional<Empresa> empresaOptional = empresaService.buscarPorId(id);
 
         try {
@@ -107,6 +110,7 @@ public class EmpresaController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao atualizar empresa.");
         }
     }
+
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping("/deletar/{id}")
     public ResponseEntity<Object> deletarEmpresa(@PathVariable Long id) {

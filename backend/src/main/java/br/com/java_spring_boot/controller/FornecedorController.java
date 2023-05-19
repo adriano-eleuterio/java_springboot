@@ -75,21 +75,21 @@ public class FornecedorController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/buscarPorCnpj/{cnpj}")
-    public ResponseEntity<Object> buscarFornecedorPorCnpj(@PathVariable String cnpj) {
+public ResponseEntity<Object> buscarFornecedorPorCnpj(@PathVariable String cnpj) {
+    cnpj = cnpj.replaceAll("[^0-9]", "");
 
-        Optional<Fornecedor> fornecedorOptional = Optional.ofNullable(fornecedorService.buscarPorCnpj(cnpj));
-        try {
-
-            if (fornecedorOptional.isPresent()) {
-                Fornecedor fornecedor = fornecedorOptional.get();
-                return ResponseEntity.ok().body(fornecedor);
-            } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Fornecedor não encontrado.");
-            }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao buscar Fornecedor.");
+    Optional<Fornecedor> fornecedorOptional = Optional.ofNullable(fornecedorService.buscarPorCnpj(cnpj));
+    try {
+        if (fornecedorOptional.isPresent()) {
+            Fornecedor fornecedor = fornecedorOptional.get();
+            return ResponseEntity.ok().body(fornecedor);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Fornecedor não encontrado.");
         }
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao buscar Fornecedor.");
     }
+}
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/salvar")
